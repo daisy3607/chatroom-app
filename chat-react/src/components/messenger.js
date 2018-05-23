@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import my_img from '../images/me.jpg';
 import your_img from '../images/mouse.jpg';
 import Message from './msg';
+import OldMessage from './oldmsg';
 import ContactRoom from './contact';
 
 export default class Messenger extends Component {
@@ -39,6 +40,7 @@ export default class Messenger extends Component {
   addTestMessages() {
     let text = this.state.inputMsg;
     this.props.addTextMsg(text);
+    
     this.setState({
       inputMsg: '',
     });
@@ -84,12 +86,19 @@ export default class Messenger extends Component {
           </div>
           <div className="content">
             <div className="messages">
+
+            {
+                this.props.msgRecord.message.map((record_data => {
+                  return <OldMessage author={record_data.author} content={record_data.text}
+                                    authorIsMe={0} /> 
+              }))
+            }
               {
                 this.props.curChannel.Messages.map((message_data => {
                   return <Message content={message_data.msg} author={message_data.author}
                                   authorIsMe={message_data.authorIsMe} />
-                })
-              )}
+                }))
+              }
             </div>
             <div className="input-place">
               <textarea className="input-msg" placeholder="type something..." value={this.state.inputMsg}  onChange={this.handleChange}></textarea>
