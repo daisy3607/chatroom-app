@@ -78,7 +78,7 @@ export default class App extends Component {
       curChatRoom: roomName,
       curChatUser: roomName.replace(this.state.myName,"").replace(":",""),
     })
-    // // console.log(curUsr);
+    console.log(curUsr);
     
   }
 

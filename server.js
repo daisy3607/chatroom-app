@@ -31,7 +31,6 @@ server.on("connection", (socket) => {
     });
 
     socket.on('add msg', function(curRoomName, curRoomUser,msg) {
-
         // add msg to database
         chatroom_data[curRoomName].push(msg);
         const roomId = user_room_map[curRoomUser];
@@ -39,9 +38,17 @@ server.on("connection", (socket) => {
         console.log(user_room_map);
         console.log(curRoomUser,roomId);
         server.to(roomId).emit('realtime chatting', msg);
-        // }
     });
 
+    socket.on('disconnect', function() {
+        
+        let usr = Object.keys(user_room_map).find(key => user_room_map[key]===socket.id);
+        user_room_map[usr] = "",
+        console.log(usr, '下線惹');
+
+    })
+
+    
     // 離線要清除自己的roomId
 });
 
