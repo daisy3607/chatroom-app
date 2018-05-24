@@ -8,66 +8,39 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: 1,
-      Me: '',
       socket: io('http://localhost:8888'),
-      userList: [{ 
-        userName: '倉鼠-薯泥',
-        Messages: [],
-        newsAlert: 0,
-      },
-      {
-        userName: '肥宅', 
-        Messages: [],
-        newsAlert: 0,
-      },
-      {
-  
-        userName: '媽媽', 
-        Messages: [],
-        newsAlert: 0,
-      },
-      {
-        
-        userName: '大眼妹', 
-        Messages: [],
-        newsAlert: 0,
-      },
-    ],
-      curChannel: 0,
-      msg_data:'', // total database
-      msg_record: '', // records for current user
-      newMsg: [],
-
+      renderLogin: 1,
+      myName: '',
+      database: '', 
+      curChatUser: '', // "肥宅"
+      curChatRoom: '', // "鼠妮:肥宅"
+      
     };
-    this.handleLogIn = this.handleLogIn.bind(this); // set my view
-    this.setChatUser = this.setChatUser.bind(this); // set who could I chat with
-    this.addTextMsg = this.addTextMsg.bind(this);
-    this.renderMsgRecord = this.renderMsgRecord.bind(this);
+
     
+    this.handleLogIn = this.handleLogIn.bind(this);
+    // this.filterFrdList = this.filterFrdList.bind(this);
+    this.setChatUser = this.setChatUser.bind(this);
+    this.addTextMsg = this.addTextMsg.bind(this);
   }
 
   componentDidMount() {
     
     this.callApi()
-      .then(res => this.setState({ msg_data: res.data }))
+      .then(res => this.setState({ database: res.data }))
       .catch(err => console.log(err));
 
     
     this.state.socket.on('realtime chatting', this.handleNewMsg);  
   }
-  
-  handleNewMsg = (usr, msg) => {
     
-    let curUserMsgList = this.state.userList;
-    curUserMsgList[this.state.curChannel].Messages.push({ msg: msg, author: usr, authorIsMe: 0});
+  handleNewMsg = (msg) => {
+    const curUser = this.state.curChatRoom;
     
-    console.log(curUserMsgList);
-    console.log(this.state);
-    // this.forceUpdate();
-    // // this.setState({
-    // //   userList:  curUserMsgList,
-    // // });
+    console.log(msg);
+    this.setState({
+      database: {...this.state.database, [curUser]: [ ...this.state.database[curUser], msg]},
+    })
   }
 
   callApi = async () => {
@@ -79,72 +52,60 @@ export default class App extends Component {
   }
 
 
-  setChatUser(id) {
-    let curUserId = this.state.curChannel;
-    
-    if (curUserId !== id) {
-      this.setState({
-        curChannel: id,
-      });
-    }
-    
-  }
+  handleLogIn(myName) {
+    this.state.socket.emit('login', myName);
+    const targetRoom = Object.keys(this.state.database).filter(key => key.includes(myName));
 
-  handleLogIn(id) {
-    // fetch data
-    const userList = this.state.userList;
-    const me_name = userList[id].userName;
-    const myChatList = userList.filter((user,index) => index !== id);
-    
-    this.state.socket.emit('login', {myName: me_name, myId: id, chatRoom: myChatList});
-    
     this.setState({
-      login: 0,
-      Me: me_name,
-      userList: myChatList,
-      // curChannel: myChatList[0].index,
+      renderLogin: 0,
+      myName: myName,
+      curChatRoom: targetRoom[0],
+      curChatUser: targetRoom[0].replace(myName, "").replace(":",""),
     })
-    this.renderMsgRecord(me_name);
+
   }
 
 
-  renderMsgRecord(myName) {
-    // { msg: 'HI', author: '媽媽', authorIsMe: 0 },
-    
-    const chat_data = this.state.msg_data;
 
-    // find current user's all chatrooms
-    const chat_usrs = (chat_data).filter(d => d.user[0] === myName || d.user[1] === myName);
+  setChatUser(curUsr) {
+ 
+    const Keys = Object.keys(this.state.database);
+    const roomName = Keys.includes(`${curUsr}:${this.state.myName}`) ? `${curUsr}:${this.state.myName}` : `${this.state.myName}:${curUsr}`;
+
+    
+    // const curRoom = roomName.filter(n => n.includes(curUsr));
     this.setState({
-      msg_record: chat_usrs,
-    }) 
-
+      curChatRoom: roomName,
+      curChatUser: roomName.replace(this.state.myName,"").replace(":",""),
+    })
+    // // console.log(curUsr);
+    
   }
 
-  addTextMsg(text) {
+  addTextMsg(author, msg) {
     
-    let curUserMsgList = this.state.userList[this.state.curChannel].Messages;
-    curUserMsgList.push({ msg: text, author: this.state.Me, authorIsMe: 1});
-    let id = this.state.curChannel;
-    // console.log(curUserMsgList);
-    // this.setState({
-    //   curUserMsgList:  curUserMsgList,
-    // });
-    this.state.socket.emit('add msg',this.state.Me ,this.state.userList[id].userName ,text);
+    // create msg array
+    let newMsg = {author:author, text: msg};
+    const curUser = this.state.curChatRoom;
 
+    this.setState({
+      database: {...this.state.database, [curUser]: [ ...this.state.database[curUser], newMsg]},
+    })
+    
+    
+    // refiltered
+    this.state.socket.emit('add msg', this.state.curChatRoom, this.state.curChatUser, newMsg);
   }
 
 
   render() {
     return (
       <div className="app-wrapper">
-        {(this.state.login)? <Login handleLogIn={this.handleLogIn} />: 
+        {(this.state.renderLogin)? <Login handleLogIn={this.handleLogIn} />: 
           (
-            <Messenger msgRecord={this.state.msg_record[this.state.curChannel]}
-                      addNewMsg={this.state.newMsg}
-                      setChatUser={this.setChatUser} userList={this.state.userList}
-                      curChannel={this.state.userList[this.state.curChannel]} 
-                      addTextMsg={this.addTextMsg}  />
+            <Messenger myName={this.state.myName} database={this.state.database} 
+                       setChatUser={this.setChatUser} 
+                       curChatRoom={this.state.curChatRoom} addTextMsg={this.addTextMsg} />
           )}
       </div>
     )

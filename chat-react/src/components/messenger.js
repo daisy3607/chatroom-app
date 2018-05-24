@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
-import my_img from '../images/me.jpg';
-import your_img from '../images/mouse.jpg';
-import Message from './msg';
-import OldMessage from './oldmsg';
-import ContactRoom from './contact';
+import avatar from '../images/mouse.jpg';
+// import Message from './msg';
+
 
 export default class Messenger extends Component {
   constructor(props) {
     super(props);
     this.state = {
       height: window.innerHeight,
-      inputMsg: [], //single msg
+      inputMsg: '', //single msg
       
     }
     this._onResize = this._onResize.bind(this);
-    this.addTestMessages = this.addTestMessages.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.setChatUser = this.setChatUser.bind(this);
+    this.addTestMessages = this.addTestMessages.bind(this);
     
   }
 
@@ -26,35 +23,57 @@ export default class Messenger extends Component {
     });
   }
 
-  setChatUser(id) {
-    console.log(id);
-    this.props.setChatUser(id);
-  }
-
-  
   componentDidMount() {
     window.addEventListener('resize', this._onResize);
     
   }
  
+
   addTestMessages() {
-    let text = this.state.inputMsg;
-    this.props.addTextMsg(text);
     
+    let msg = this.state.inputMsg;
+
     this.setState({
       inputMsg: '',
     });
+
+    this.props.addTextMsg(this.props.myName, msg);
+
   }
+
 
   handleChange(e) {
     let text = e.target.value;
-    this.setState({inputMsg: text});
+
+    this.setState({
+      inputMsg: text,
+    });
+
   }
 
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
   }
+
+  renderChat = (usr_data) => (
+    <div className="usr-channel" onClick={() => this.props.setChatUser(usr_data)} >
+      <div className="channel-body" >
+        <div className="channel-usr">
+        <h5>{usr_data}</h5>
+        </div>
+      </div>
+    </div>
+  );
+
+  renderMsg = (d) => (
+    <div className={`${(this.props.myName===d.author) ? 'my' : 'ur'}-message`}>
+    <div className="msg-body">
+      <div className="msg-author">{d.author}</div>
+      <div className={`msg-txt ${(this.props.myName===d.author) ? 'my' : 'ur'}`}>{d.text}</div>
+    </div>
+  </div>    
+  )
 
   render() {
     const style={
@@ -64,44 +83,27 @@ export default class Messenger extends Component {
     return (
       <div style={style} className="app-messenger">
         <div className="header">
-          <div className="header-left">
-            <button className="new-msg">New Message</button>
-          </div>
-
           <div className="header-content">
-            <h2>{this.props.curChannel.userName}</h2>
+            <h2>{this.props.myName}</h2>
           </div>
         </div>
 
         <div className="main">
           <div className="sidebar-left">
           {
-            
-            this.props.userList.map((user_data, index) => {
-              return <ContactRoom userId={index}
-                                  userName={user_data.userName}
-                                  setChatUser={this.setChatUser} />
-            }
-          )}
+            Object.keys(this.props.database).filter(k=>k.includes(this.props.myName))
+                    .map(d => this.renderChat(d.replace(this.props.myName, "").replace(":","")))
+          }
           </div>
           <div className="content">
             <div className="messages">
-
-            {
-                this.props.msgRecord.message.map((record_data => {
-                  return <OldMessage author={record_data.author} content={record_data.text}
-                                    authorIsMe={0} /> 
-              }))
-            }
               {
-                this.props.curChannel.Messages.map((message_data => {
-                  return <Message content={message_data.msg} author={message_data.author}
-                                  authorIsMe={message_data.authorIsMe} />
-                }))
+                this.props.database[this.props.curChatRoom].map(d => this.renderMsg(d))
               }
+
             </div>
             <div className="input-place">
-              <textarea className="input-msg" placeholder="type something..." value={this.state.inputMsg}  onChange={this.handleChange}></textarea>
+              <textarea className="input-msg" placeholder="type something..." value={this.state.inputMsg} onChange={this.handleChange}></textarea>
               <button className="send-btn" onClick={this.addTestMessages}>送出</button>
             </div>
           </div>

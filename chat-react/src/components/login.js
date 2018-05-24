@@ -7,19 +7,19 @@ export default class login extends Component {
     this.handleLogIn = this.handleLogIn.bind(this);
   }
 
-  handleLogIn(id) {
-    this.props.handleLogIn(id);
+  handleLogIn(name) {
+    this.props.handleLogIn(name);
   }
 
   render() {
     return (
       <div className = "UserListContainer">
-        
+        <h3> Please select your identity </h3>
         <ul>
-          <li><button className="UserWrapper" onClick={()=>this.handleLogIn(0)}>倉鼠-薯泥</button></li>
-          <li><button className="UserWrapper" onClick={()=>this.handleLogIn(1)}>肥宅</button></li>
-          <li><button className="UserWrapper" onClick={()=>this.handleLogIn(2)}>媽媽</button></li>
-          <li><button className="UserWrapper" onClick={()=>this.handleLogIn(3)}>大眼妹</button></li>
+          <li><button className="UserWrapper" onClick={()=>this.handleLogIn('薯泥')}>薯泥</button></li>
+          <li><button className="UserWrapper" onClick={()=>this.handleLogIn('肥宅')}>肥宅</button></li>
+          <li><button className="UserWrapper" onClick={()=>this.handleLogIn('媽媽')}>媽媽</button></li>
+          <li><button className="UserWrapper" onClick={()=>this.handleLogIn('大眼妹')}>大眼妹</button></li>
         </ul>
       </div>
     )

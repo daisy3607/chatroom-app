@@ -58,12 +58,18 @@ h2 {
 
 .usr-channel {
   height: 13%;
+  
   border-bottom: 1px solid hsl(240, 5%, 90%);
   display: flex;
 }
 
 
 .channel-body {
+  padding: 12px;
+}
+
+.channel-body-after {
+  color: pink;
   padding: 12px;
 }
 
