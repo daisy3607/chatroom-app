@@ -21,13 +21,17 @@ app.get('/data', (req, res) => {
 });
 
 
+
 const server = io.listen(8888);
 
 server.on("connection", (socket) => {
 
     socket.on('login', function(userKey) {
         console.log(userKey,socket.id, "上限了");
-        user_room_map[userKey] = socket.id;
+        if(Object.keys(user_room_map).includes(userKey)) {
+            user_room_map[userKey] = socket.id;
+            socket.emit('add onlineUsr', userKey);
+        }
     });
 
     socket.on('add msg', function(curRoomName, curRoomUser,msg) {

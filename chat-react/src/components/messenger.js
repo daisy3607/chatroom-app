@@ -60,7 +60,8 @@ export default class Messenger extends Component {
     <div className="usr-channel" onClick={() => this.props.setChatUser(usr_data)} >
       <div className="channel-body" >
         <div className="channel-usr">
-        <h5>{usr_data}</h5>
+        <h5>{usr_data}</h5> 
+        <span>{(this.props.alert[usr_data])? '您有新訊息': null}</span>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ export default class App extends Component {
       database: '', 
       curChatUser: '', // "肥宅"
       curChatRoom: '', // "鼠妮:肥宅"
-      
+      alert: {'薯泥': 0, '肥宅': 0, '媽媽': 0, '大眼妹': 0},
     };
 
     
@@ -25,23 +25,29 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    
+
     this.callApi()
       .then(res => this.setState({ database: res.data }))
       .catch(err => console.log(err));
 
-    
     this.state.socket.on('realtime chatting', this.handleNewMsg);  
+
   }
     
   handleNewMsg = (msg) => {
     const curUser = this.state.curChatRoom;
+    const curChatUser = this.state.curChatUser;
     
-    console.log(msg);
     this.setState({
       database: {...this.state.database, [curUser]: [ ...this.state.database[curUser], msg]},
+      alert: {...this.state.alert, [curChatUser]: 1}
     })
+
+    console.log(curChatUser);
+
   }
+
+
 
   callApi = async () => {
     const response = await fetch('/data');    
@@ -51,8 +57,8 @@ export default class App extends Component {
     return body;
   }
 
-
   handleLogIn(myName) {
+    
     this.state.socket.emit('login', myName);
     const targetRoom = Object.keys(this.state.database).filter(key => key.includes(myName));
 
@@ -63,6 +69,7 @@ export default class App extends Component {
       curChatUser: targetRoom[0].replace(myName, "").replace(":",""),
     })
 
+    
   }
 
 
@@ -71,14 +78,13 @@ export default class App extends Component {
  
     const Keys = Object.keys(this.state.database);
     const roomName = Keys.includes(`${curUsr}:${this.state.myName}`) ? `${curUsr}:${this.state.myName}` : `${this.state.myName}:${curUsr}`;
-
     
-    // const curRoom = roomName.filter(n => n.includes(curUsr));
+
     this.setState({
       curChatRoom: roomName,
       curChatUser: roomName.replace(this.state.myName,"").replace(":",""),
-    })
-    console.log(curUsr);
+      alert: {...this.state.alert, [curUsr]: 0}
+    })    
     
   }
 
@@ -101,10 +107,11 @@ export default class App extends Component {
   render() {
     return (
       <div className="app-wrapper">
-        {(this.state.renderLogin)? <Login handleLogIn={this.handleLogIn} />: 
+        {(this.state.renderLogin)? <Login handleLogIn={this.handleLogIn} 
+                                          socket={this.state.socket}/>: 
           (
             <Messenger myName={this.state.myName} database={this.state.database} 
-                       setChatUser={this.setChatUser} 
+                       setChatUser={this.setChatUser} alert={this.state.alert}
                        curChatRoom={this.state.curChatRoom} addTextMsg={this.addTextMsg} />
           )}
       </div>

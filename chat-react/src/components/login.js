@@ -5,11 +5,15 @@ export default class login extends Component {
   constructor(props) {
     super(props);
     this.handleLogIn = this.handleLogIn.bind(this);
+    this.state = {
+      onlineUser: [],
+    }
   }
 
   handleLogIn(name) {
     this.props.handleLogIn(name);
   }
+
 
   render() {
     return (
