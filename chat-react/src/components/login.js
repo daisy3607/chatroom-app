@@ -18,13 +18,16 @@ export default class login extends Component {
   render() {
     return (
       <div className = "UserListContainer">
-        <h3> Please select your identity </h3>
-        <ul>
-          <li><button className="UserWrapper" onClick={()=>this.handleLogIn('薯泥')}>薯泥</button></li>
-          <li><button className="UserWrapper" onClick={()=>this.handleLogIn('肥宅')}>肥宅</button></li>
-          <li><button className="UserWrapper" onClick={()=>this.handleLogIn('媽媽')}>媽媽</button></li>
-          <li><button className="UserWrapper" onClick={()=>this.handleLogIn('大眼妹')}>大眼妹</button></li>
-        </ul>
+        <div className = "ListWrapper">
+          <h3> L O G I N </h3>
+          <ul>
+            <li><button className="UserWrapper" onClick={()=>this.handleLogIn('薯泥')}><span>薯泥</span></button></li>
+            <li><button className="UserWrapper" onClick={()=>this.handleLogIn('肥宅')}><span>肥宅</span></button></li>
+            <li><button className="UserWrapper" onClick={()=>this.handleLogIn('媽媽')}><span>媽媽</span></button></li>
+            <li><button className="UserWrapper" onClick={()=>this.handleLogIn('大眼妹')}><span>大眼妹</span></button></li>
+          </ul>
+          <p className="designer"> designed by Daisy Tsai</p>
+        </div>
       </div>
     )
   }

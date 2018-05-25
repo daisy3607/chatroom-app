@@ -1,7 +1,83 @@
+
+@import url('https://fonts.googleapis.com/css?family=Sunflower:300');
+html {
+
+}
+* {
+    font-family: 'Sunflower', sans-serif, 'Microsoft JhengHei', '微軟正黑體';
+    
+}
+
+h3 {
+    margin: auto 0;
+    font-size: 18vh ;
+    font-size: 5vw;
+    text-align: center;
+    color: rgb(156, 224, 249);
+    font-weight: 100;
+}
+
+.UserListContainer {
+    /* background: url("../images/background_img.jpg"); */
+    background: #E9F0F6;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.ListWrapper {
+    background: rgb(255, 255, 255);
+    padding: 7vh 6vw;
+    height: 80vh;
+    width: 30vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: center;
+    border-radius: 5px;
+
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5vh;
+    margin: auto 0;
+    list-style-type: none;
+    
+}
+
 .UserWrapper {
-    border: 1px solid #000000;
+    background: inherit;
+    border: 1px solid rgb(156, 224, 249);
+    border-radius: 5px;
+    height: 8vh;
+    width: 23vw;
+    margin: 2vh;
+    
 }
 
 .UserWrapper:hover {
-    background-color: aqua;
+
+    background-color: rgb(255, 245, 173);
+    border: 1px solid rgb(255, 245, 173);
+    
+}
+
+
+
+
+span {
+    font-size: 4vh;
+    font-weight: 100;
+    
+    color: rgb(156, 224, 249);
+}
+
+p {
+    font-size: 3vh;
+    color: hsl(0, 0%, 80%);
+    text-align: center;
+    padding-top: 1vh;
 }
