@@ -17,13 +17,13 @@
 # Start 
 ### Server
 ```
-cd react-chatroom-app
+cd chatroom-app
 node server.js
 ```
 
 ### Client
 ```
-cd react-chatroom-app/chat-react
+cd chatroom-app/chat-react
 yarn start
 ```
 # Contributor
