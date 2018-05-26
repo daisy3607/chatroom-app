@@ -27,7 +27,7 @@ const server = io.listen(8888);
 server.on("connection", (socket) => {
 
     socket.on('login', function(userKey) {
-        console.log(userKey,socket.id, "上限了");
+        
         if(Object.keys(user_room_map).includes(userKey)) {
             user_room_map[userKey] = socket.id;
             socket.emit('add onlineUsr', userKey);
@@ -40,8 +40,7 @@ server.on("connection", (socket) => {
         const roomId = user_room_map[curRoomUser];
         // broacast newMsg to other client
         author = curRoomName.replace(curRoomUser,"").replace(":","");
-        console.log('server author: ',author);
-        console.log('server room name: ',curRoomName);
+
         server.to(roomId).emit('realtime chatting', author, curRoomName, msg);
     });
 
@@ -49,12 +48,10 @@ server.on("connection", (socket) => {
         
         let usr = Object.keys(user_room_map).find(key => user_room_map[key]===socket.id);
         user_room_map[usr] = "",
-        console.log(usr, '下線惹');
+        
 
     })
 
-    
-    // 離線要清除自己的roomId
 });
 
 app.listen(PORT, () => {
