@@ -60,7 +60,7 @@ export default class Messenger extends Component {
     
     
     <div className={`usr-channel${(this.props.alert[usr_data])? '-alert' : ''}`} onClick={() => this.props.setChatUser(usr_data)} >
-      <div className="channel-body" >
+      <div className={`channel-body${(this.props.curChatUser === usr_data)? '-selected' : ''}`} >
         <div className="channel-img">
           <img src = {avatar}></img>
         </div>

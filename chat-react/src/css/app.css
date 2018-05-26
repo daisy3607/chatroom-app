@@ -5,7 +5,7 @@ body, html {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: "Times New Roman", Times, serif;
+  
   font-family: 'Cabin Sketch',  'Microsoft JhengHei', '微軟正黑體', sans-serif;
 
 }
@@ -28,13 +28,12 @@ body, html {
 }
 
 .header-content {
+  position: fixed;
   height: 100%;
   width: 100%;
   margin: auto 0;
   text-align: center;
   display: inline-block;
-  vertical-align: center;
-  line-height: 10vh;
   font-size: 7vh;
   color: #FFFFFF;
   
@@ -73,25 +72,7 @@ body, html {
 }
 
 
-.new-msg {
-  height: 20px;
-  width: 100px;
-  margin: 13px 0px 0px 10px;
-}
 
-
-.header-content {
-  width: 70%;
-}
-
-h2 {
-  margin: auto 0;
-  font-weight: 100;
-  padding: 0;
-  font-size: 25vw;
-
-  
-}
 
 
 .main {
@@ -108,6 +89,18 @@ h2 {
 
 }
 
+
+.usr-channel {
+  height: 16vh;
+  border-bottom: 1px solid rgb(212, 241, 250);
+}
+
+.usr-channel:hover {
+  /* padding: 2vh; */
+  background-color: #9EE0F8;
+}
+
+
 .channel-body {
   padding: 2vh;
   color: #9EE0F8;
@@ -116,14 +109,13 @@ h2 {
   justify-content: flex-start;
 }
 
-.usr-channel {
-  height: 15vh;
-  border-bottom: 1px solid rgb(212, 241, 250);
-}
-
-.usr-channel:hover {
-  /* padding: 2vh; */
-  background-color: #9EE0F8;
+.channel-body-selected {
+  padding: 2vh;
+  background-color: #FFFFFF;
+  border: 3px solid rgb(212, 241, 250);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
 
@@ -142,12 +134,13 @@ h2 {
 }
 
 h5 {
-  padding-top: 2vh;
+  padding-left: 1vw;
+  line-height: 12vh;
   margin: auto 0;
   font-weight: 100;
   color: rgb(128, 221, 255);
-  vertical-align: center;
-  font-size: 3vh;
+  
+  font-size: 4vh;
   display: inline;
 
 }
@@ -163,15 +156,15 @@ h5 {
 }
 
 @keyframes alert {
-  0%   {background-color: rgb(128, 221, 255); }
+  0%   {background-color: rgb(128, 221, 255); color: #FFFFFF;}
   50% {background-color: rgb(255, 255, 255); }
-
+  100%   {background-color: rgb(128, 221, 255); color: #FFFFFF;}
 }
 
 @-webkit-keyframes alert {
-  0%   {background-color: rgb(128, 221, 255) }
+  0%   {background-color: rgb(128, 221, 255); color: #FFFFFF;}
   50% {background-color: rgb(255, 255, 255); }
-
+  100%   {background-color: rgb(128, 221, 255); color: #FFFFFF;}
 }
 
 
@@ -185,25 +178,30 @@ h5 {
 
 .messages {
   height: 85%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-bottom: 10px;
+  overflow-x: hidden;
+  font-family: 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+
+  
   
 }
 
 .ur-message {
   display: flex;
-  margin: 10px 0px 10px 10px;
-  width: 40%;
+  justify-content: flex-start;
+  margin-left: 2vw;
+  
   
 }
 
 .my-message {
-  justify-content: flex-end;
   display: flex;
+  justify-content: flex-end;
+  margin-right: 2vw;
   
-  margin: 10px 10px 10px 0px;
 }
 
 .usr-img img {
@@ -214,39 +212,44 @@ h5 {
 }
 
 .msg-body {
-  font-size: 10px;
-  padding-left: 10px;
-
+  font-size: 3vh;
+  margin-top: 1vh;
+  max-width: 40%;
+  
+  
 }
 
 .msg-author {
-  margin-bottom: 5px;
+  margin-top: 1vh;
+  color: rgb(136, 137, 138);
+  font-weight: 100;
 }
 
 .msg-txt.ur {
   background: #F1F0F0;
   color: #000000;
-  font-size: 12px;
-
-  padding: 10px;
-  border: 10px;
+  padding: 2vh;
   border-radius: 10px;
+  overflow-x: hidden;
+  word-break: break-all;
+  
+  
+  
 }
 
 .msg-txt.my {
   background: #9EE0F8;
   color: #FFFFFF;
-  font-size: 12px;
-
-  padding: 10px;
-  border: 10px;
   border-radius: 10px;
+  padding: 2vh;
+  overflow-x: hidden;
+  word-break: break-all;
 }
 
 
-
 .input-place {
-  border-top: 1px solid hsl(240, 5%, 90%);
+  font-family: 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+  border: 1px solid rgb(212, 241, 250);
   height: 15%;
   display: flex;
   background-color: hsl(240, 5%, 90%); 
@@ -257,7 +260,9 @@ h5 {
   width: 100%;
   height: 100%;
   padding: 10px 10px;
-  font-size: 15px;
+  font-size: 3vh;
+  color: rgb(136, 137, 138);
+  font-weight: 100;
 }
 
 .send-btn{

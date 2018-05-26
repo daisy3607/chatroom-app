@@ -41,7 +41,6 @@ export default class App extends Component {
       alert: {...this.state.alert, [author]: 1}
     })
 
-
   }
 
 
@@ -106,7 +105,7 @@ export default class App extends Component {
                                           socket={this.state.socket}/>: 
           (
             <Messenger myName={this.state.myName} database={this.state.database} 
-                       setChatUser={this.setChatUser} alert={this.state.alert}
+                       setChatUser={this.setChatUser} alert={this.state.alert} curChatUser={this.state.curChatUser}
                        curChatRoom={this.state.curChatRoom} addTextMsg={this.addTextMsg} />
           )}
       </div>
