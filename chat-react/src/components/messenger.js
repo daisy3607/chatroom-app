@@ -13,6 +13,7 @@ export default class Messenger extends Component {
     }
     this._onResize = this._onResize.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.addTestMessages = this.addTestMessages.bind(this);
     
   }
@@ -51,6 +52,15 @@ export default class Messenger extends Component {
 
   }
 
+  handleKeyPress(e) {
+    
+    if(e.key === 'Enter'){
+      this.addTestMessages();
+      if(e.preventDefault) {
+        e.preventDefault();
+      }
+    }
+  }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
@@ -111,7 +121,7 @@ export default class Messenger extends Component {
 
             </div>
             <div className="input-place">
-              <textarea className="input-msg" placeholder="type something..." value={this.state.inputMsg} onChange={this.handleChange}></textarea>
+              <textarea className="input-msg" placeholder="type something..." value={this.state.inputMsg} onChange={this.handleChange} onKeyPress={this.handleKeyPress}></textarea>
               <button className="send-btn" onClick={this.addTestMessages}>送出</button>
             </div>
           </div>

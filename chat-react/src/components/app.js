@@ -57,6 +57,8 @@ export default class App extends Component {
     this.state.socket.emit('login', myName);
     const targetRoom = Object.keys(this.state.database).filter(key => key.includes(myName));
     
+    
+
     this.setState({
       renderLogin: 0,
       myName: myName,
