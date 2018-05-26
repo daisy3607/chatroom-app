@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin+Sketch|Sunflower:300');
+
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
+  width: 100%;
   font-family: "Times New Roman", Times, serif;
+  font-family: 'Cabin Sketch',  'Microsoft JhengHei', '微軟正黑體', sans-serif;
 
 }
 
@@ -17,16 +21,57 @@ body, html {
 }
 
 .header {
-  border-bottom: 1px solid hsl(240, 5%, 90%);
-  height: 50px;
+  width: 100%;
+  height: 10vh;
+  
+  background-color:rgb(128, 221, 255);
+}
+
+.header-content {
+  height: 100%;
+  width: 100%;
+  margin: auto 0;
+  text-align: center;
+  display: inline-block;
+  vertical-align: center;
+  line-height: 10vh;
+  font-size: 7vh;
+  color: #FFFFFF;
+  
+}
+
+.header-right {
+  width: 10%;
+  height: 100%;
+  display: inline-block;
+  float: right;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  line-height: 10vh;
+  
 }
 
-.header-left {
-  width: 20%;
-
+.usr-img {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.usr-img img {
+  max-height: 50vh;
+  width: auto;
+}
+
+.header-right p {
+  margin: 0;
+  color: #FFFFFF;
+}
+
 
 .new-msg {
   height: 20px;
@@ -40,66 +85,99 @@ body, html {
 }
 
 h2 {
-  padding-top: 10px;
-  padding-left: 50%;
-  margin: 0;
+  margin: auto 0;
   font-weight: 100;
+  padding: 0;
+  font-size: 25vw;
+
+  
 }
 
 
 .main {
   display: flex;
   height: 100%; 
+  background-color: #FFFFFF;
 }
 
 .sidebar-left {
-  width: 23%;
-  border-right: 1px solid hsl(240, 5%, 90%);
+  width: 20%;
+  border-right: 1px solid #FFFFFF;
+  background-color: rgba(218, 241, 249, 0.509);
   overflow-y: auto;
+
+}
+
+.channel-body {
+  padding: 2vh;
+  color: #9EE0F8;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
 .usr-channel {
-  height: 13%;
-  
-  border-bottom: 1px solid hsl(240, 5%, 90%);
-  display: flex;
+  height: 15vh;
+  border-bottom: 1px solid rgb(212, 241, 250);
 }
 
-
-.channel-body {
-  padding: 12px;
+.usr-channel:hover {
+  /* padding: 2vh; */
+  background-color: #9EE0F8;
 }
 
-.channel-body-after {
-  color: pink;
-  padding: 12px;
-}
 
 .channel-img img {
-  height: 50px;
-  width: 50px;
+  height: 8vh;
+  width: 4vw;
+
   border-radius: 50%;
-  margin: 10px 10px 10px 10px; 
+  margin: 2vh; 
 }
 
-.channel-usr h5 {
-  margin: auto 0;
-  padding-bottom: 10px;
-
+.channel-usr {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
 }
 
-.channel-latest p {
+h5 {
+  padding-top: 2vh;
   margin: auto 0;
-  font-size: 14px;
   font-weight: 100;
-  color: hsl(240, 5%, 70%);
+  color: rgb(128, 221, 255);
+  vertical-align: center;
+  font-size: 3vh;
+  display: inline;
+
+}
+
+
+.usr-channel-alert {
+  animation-iteration-count: infinite;
+  -webkitanimation-iteration-count: infinite;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
+  animation-name: alert;
+  animation-duration: 0.5s;
+}
+
+@keyframes alert {
+  0%   {background-color: rgb(128, 221, 255); }
+  50% {background-color: rgb(255, 255, 255); }
+
+}
+
+@-webkit-keyframes alert {
+  0%   {background-color: rgb(128, 221, 255) }
+  50% {background-color: rgb(255, 255, 255); }
+
 }
 
 
 
 .content {
   flex-grow: 1;
-  
   display: flex;
   flex-direction: column;
   
@@ -156,7 +234,7 @@ h2 {
 }
 
 .msg-txt.my {
-  background: #E48586;
+  background: #9EE0F8;
   color: #FFFFFF;
   font-size: 12px;
 
@@ -171,6 +249,7 @@ h2 {
   border-top: 1px solid hsl(240, 5%, 90%);
   height: 15%;
   display: flex;
+  background-color: hsl(240, 5%, 90%); 
 }
 
 .input-msg {
@@ -184,7 +263,7 @@ h2 {
 .send-btn{
   width: 12%;
   height: 100%;
-  background-color: #E48586;
+  background-color: #9EE0F8;
   color: #FFFFFF; 
   font-size: 20px;
   font-weight: 100em;

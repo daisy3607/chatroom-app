@@ -39,9 +39,10 @@ server.on("connection", (socket) => {
         chatroom_data[curRoomName].push(msg);
         const roomId = user_room_map[curRoomUser];
         // broacast newMsg to other client
-        console.log(user_room_map);
-        console.log(curRoomUser,roomId);
-        server.to(roomId).emit('realtime chatting', msg);
+        author = curRoomName.replace(curRoomUser,"").replace(":","");
+        console.log('server author: ',author);
+        console.log('server room name: ',curRoomName);
+        server.to(roomId).emit('realtime chatting', author, curRoomName, msg);
     });
 
     socket.on('disconnect', function() {

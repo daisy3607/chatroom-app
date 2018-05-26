@@ -34,16 +34,13 @@ export default class App extends Component {
 
   }
     
-  handleNewMsg = (msg) => {
-    const curUser = this.state.curChatRoom;
-    const curChatUser = this.state.curChatUser;
+  handleNewMsg = (author, authorRoom, msg) => {
     
     this.setState({
-      database: {...this.state.database, [curUser]: [ ...this.state.database[curUser], msg]},
-      alert: {...this.state.alert, [curChatUser]: 1}
+      database: {...this.state.database, [authorRoom]: [ ...this.state.database[authorRoom], msg]},
+      alert: {...this.state.alert, [author]: 1}
     })
 
-    console.log(curChatUser);
 
   }
 
@@ -72,7 +69,6 @@ export default class App extends Component {
   }
 
 
-
   setChatUser(curUsr) {
  
     const Keys = Object.keys(this.state.database);
@@ -84,7 +80,7 @@ export default class App extends Component {
       curChatUser: roomName.replace(this.state.myName,"").replace(":",""),
       alert: {...this.state.alert, [curUsr]: 0}
     })    
-    
+
   }
 
   addTextMsg(author, msg) {

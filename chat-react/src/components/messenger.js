@@ -57,11 +57,16 @@ export default class Messenger extends Component {
   }
 
   renderChat = (usr_data) => (
-    <div className="usr-channel" onClick={() => this.props.setChatUser(usr_data)} >
+    
+    
+    <div className={`usr-channel${(this.props.alert[usr_data])? '-alert' : ''}`} onClick={() => this.props.setChatUser(usr_data)} >
       <div className="channel-body" >
+        <div className="channel-img">
+          <img src = {avatar}></img>
+        </div>
         <div className="channel-usr">
-        <h5>{usr_data}</h5> 
-        <span>{(this.props.alert[usr_data])? '您有新訊息': null}</span>
+          <h5>{usr_data}</h5> 
+
         </div>
       </div>
     </div>
@@ -84,8 +89,10 @@ export default class Messenger extends Component {
     return (
       <div style={style} className="app-messenger">
         <div className="header">
-          <div className="header-content">
-            <h2>{this.props.myName}</h2>
+          <div className="header-content">Messages</div>
+          <div className="header-right">
+            <div className="usr-img"><img src = {avatar}></img></div>
+            <p>{this.props.myName}</p>
           </div>
         </div>
 

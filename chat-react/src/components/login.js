@@ -26,8 +26,8 @@ export default class login extends Component {
             <li><button className="UserWrapper" onClick={()=>this.handleLogIn('媽媽')}><span>媽媽</span></button></li>
             <li><button className="UserWrapper" onClick={()=>this.handleLogIn('大眼妹')}><span>大眼妹</span></button></li>
           </ul>
-          <p className="designer"> designed by Daisy Tsai</p>
         </div>
+          <p className="designer"> designed by Daisy Tsai</p>
       </div>
     )
   }

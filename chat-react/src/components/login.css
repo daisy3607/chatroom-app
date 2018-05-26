@@ -1,16 +1,14 @@
 
-@import url('https://fonts.googleapis.com/css?family=Sunflower:300');
-html {
+@import url('https://fonts.googleapis.com/css?family=Cabin+Sketch|Sunflower:300');
 
-}
-* {
-    font-family: 'Sunflower', sans-serif, 'Microsoft JhengHei', '微軟正黑體';
+/* * {
+    font-family: 'Cabin Sketch',  'Microsoft JhengHei', '微軟正黑體', sans-serif;
     
-}
+} */
 
 h3 {
     margin: auto 0;
-    font-size: 18vh ;
+    font-size: 20vh ;
     font-size: 5vw;
     text-align: center;
     color: rgb(156, 224, 249);
@@ -19,9 +17,11 @@ h3 {
 
 .UserListContainer {
     /* background: url("../images/background_img.jpg"); */
+    font-family: 'Cabin Sketch',  'Microsoft JhengHei', '微軟正黑體', sans-serif;
     background: #E9F0F6;
     height:100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -29,7 +29,7 @@ h3 {
 
 .ListWrapper {
     background: rgb(255, 255, 255);
-    padding: 7vh 6vw;
+    padding: 7vh 5vw;
     height: 80vh;
     width: 30vw;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -60,9 +60,8 @@ ul {
 
 .UserWrapper:hover {
 
-    background-color: rgb(255, 245, 173);
-    border: 1px solid rgb(255, 245, 173);
-    
+    background-color: rgb(156, 224, 249);
+    border: 1px solid rgb(156, 224, 249);
 }
 
 
@@ -73,6 +72,11 @@ span {
     font-weight: 100;
     
     color: rgb(156, 224, 249);
+}
+
+.UserWrapper:hover > span {
+    color: #fff;
+    font-weight: 100;
 }
 
 p {
