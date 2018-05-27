@@ -1,6 +1,6 @@
 # Realtime Chatroom: React Messenger  
 
-![Alt Text](https://imgur.com/jO8pYrv.gif)
+![Alt Text](https://imgur.com/s53FmbH.gif)
 
 
 # Tools
