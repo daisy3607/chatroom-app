@@ -47,10 +47,9 @@ server.on("connection", (socket) => {
     socket.on('disconnect', function() {
         
         let usr = Object.keys(user_room_map).find(key => user_room_map[key]===socket.id);
-        user_room_map[usr] = "",
-        
+        user_room_map[usr] = "";
 
-    })
+    });
 
 });
 

@@ -104,7 +104,7 @@ export default class App extends Component {
     return (
       <div className="app-wrapper">
         {(this.state.renderLogin)? <Login handleLogIn={this.handleLogIn} 
-                                          socket={this.state.socket}/>: 
+                                         />: 
           (
             <Messenger myName={this.state.myName} database={this.state.database} 
                        setChatUser={this.setChatUser} alert={this.state.alert} curChatUser={this.state.curChatUser}
